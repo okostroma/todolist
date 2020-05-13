@@ -1,16 +1,44 @@
 .App {
+    font-family: cursive;
 
+}
+
+/*.todoList {*/
+/*    width: 500px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+
+.App {
+    display: flex;
+    flex-direction: row;
 }
 
 .todoList {
-  width: 500px;
-  margin: 0 auto;
+    width: 300px;
 }
 
+
 .todoList > div {
-  padding: 10px;
+    padding: 10px;
 }
 
 .todoList-task {
 
+}
+
+.filter-active {
+    background-color: aqua;
+}
+
+.error {
+    border-color: red;
+}
+
+.todoList-task.done {
+    opacity: 0.5;
+}
+
+button {
+    font-family: cursive;
 }
