@@ -16,6 +16,32 @@ class App extends React.Component {
     }
 
     nextTodoListId = 0;
+    saveState = () => {
+        let stateAsString = JSON.stringify(this.state);
+        localStorage.setItem('todolists', stateAsString)
+
+    }
+    restoreState = () => {
+        let state = {
+            todolists: []
+        };
+        let stateAsString = localStorage.getItem('todolists');
+        if (stateAsString) {
+            state = JSON.parse(stateAsString);
+        }
+        this.setState(state, () => {
+            this.state.todolists.forEach(t => {
+                    if (t.id >= this.nextTodoListId) {
+                        this.nextTodoListId = t.id + 1
+                    }
+                }
+            )
+        })
+    }
+
+    componentDidMount() {
+        this.restoreState();
+    }
 
     addTodoList = (title) => {
         let todoList = {
@@ -26,7 +52,7 @@ class App extends React.Component {
         let newTodoList = [...this.state.todolists, todoList];
         this.setState({
             todolists: newTodoList
-        })
+        },this.saveState)
     }
 
     render = () => {
