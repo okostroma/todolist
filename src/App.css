@@ -1,3 +1,8 @@
+body {
+    background-color: aliceblue;
+
+}
+
 .App {
     font-family: cursive;
 
@@ -15,7 +20,9 @@
 }
 
 .todoList {
-    width: 300px;
+    max-width: 400px;
+    position: relative;
+    margin-right: 30px;
 }
 
 
@@ -42,3 +49,26 @@
 button {
     font-family: cursive;
 }
+
+
+.times {
+    margin-left: 10px;
+    color: #000;
+    cursor: pointer;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.times-header {
+    margin-left: 10px;
+    color: #000;
+    position: absolute;
+    top: 35px;
+    right: 20px;
+    cursor: pointer;
+
+}
+

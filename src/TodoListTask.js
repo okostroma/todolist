@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 class TodoListTask extends React.Component {
     state = {
-        isEditMode: false
+        isEditMode: false,
+        priority: ['high', 'medium', 'low']
     }
     activatedEditMode = () => {
         this.setState({
@@ -29,8 +32,13 @@ class TodoListTask extends React.Component {
     onIsTitleChange = (e) => {
         this.props.changeTitle(this.props.task.id, e.currentTarget.value)
     }
-    isTaskDeleted = (e) => {
+    isTaskDeleted = () => {
         this.props.deleteTask(this.props.task.id);
+    }
+
+    onIsPriorityChanged = (e) => {
+        this.props.changePriority(this.props.task.id,e.currentTarget.value)
+
     }
 
 
@@ -45,7 +53,17 @@ class TodoListTask extends React.Component {
                     {this.props.task.id} - {this.props.task.title}</span>
                 }
                  ,
-                <span>priority: {this.props.task.priority}</span> <button onClick={this.isTaskDeleted}> delete </button>
+                {/*<span>priority: {this.props.task.priority}</span>*/}
+
+                <span > priority:
+                        <select onChange={this.onIsPriorityChanged} value={this.props.task.priority}>
+                            <option value={this.state.priority[0]} >{this.state.priority[0]}</option>
+                            <option value={this.state.priority[1]} >{this.state.priority[1]}</option>
+                            <option value={this.state.priority[2]}>{this.state.priority[2]}</option>
+                        </select>
+                    {/*{this.props.task.priority}*/}
+                    </span>
+                <span onClick={this.isTaskDeleted}> <FontAwesomeIcon className='times' icon={faTimes}/> </span>
             </div>
         );
     }

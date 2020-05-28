@@ -3,8 +3,10 @@ import './App.css';
 import AddNewItemForm from "./AddNewItemForm";
 import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
-import PropTypes from 'prop-types';
 import TodoListTitle from "./TodoListTitle";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTimes} from '@fortawesome/free-solid-svg-icons'
+import {connect} from "react-redux";
 
 class TodoList extends React.Component {
 
@@ -54,24 +56,28 @@ class TodoList extends React.Component {
             id: this.nextTaskId,
             title: newTitle,
             isDone: false,
-            priority: "high"
+            priority: ""
         };
         this.nextTaskId++;
-        let newTasks = [...this.state.tasks, newTask];
+        // let newTasks = [...this.state.tasks, newTask];
+        //
+        // this.setState({
+        //     tasks: newTasks
+        // }, this.saveState);
 
-        this.setState({
-            tasks: newTasks
-        }, this.saveState);
+        this.props.addTask(this.props.id, newTask);
 
     }
 
     deleteTask = (taskId) => {
-        let newTasks = this.state.tasks.filter(t => {
-            return t.id !== taskId;
-        });
-        this.setState({
-            tasks: newTasks
-        }, this.saveState);
+        // let newTasks = this.props.tasks.filter(t => {
+        //     return t.id !== taskId;
+        // });
+        // this.setState({
+        //     tasks: newTasks
+        // }, this.saveState);
+
+        this.props.deleteTask(this.props.id, taskId)
 
     }
 
@@ -83,16 +89,18 @@ class TodoList extends React.Component {
     }
 
     changeTask = (taskId, obj) => {
-        let newTasks = this.state.tasks.map(t => {
-            if (t.id != taskId) {
-                return t;
-            } else {
-                return {...t, ...obj};
-            }
-        });
-        this.setState({
-            tasks: newTasks
-        }, this.saveState);
+        // let newTasks = this.state.tasks.map(t => {
+        //     if (t.id !== taskId) {
+        //         return t;
+        //     } else {
+        //         return {...t, ...obj};
+        //     }
+        // });
+        // this.setState({
+        //     tasks: newTasks
+        // }, this.saveState);
+
+        this.props.changeTask (this.props.id,taskId, obj )
     }
 
     changeStatus = (taskId, isDone) => {
@@ -105,9 +113,18 @@ class TodoList extends React.Component {
 
     }
 
+    changePriority = (taskId, priority) => {
+        this.changeTask(taskId, {priority: priority})
+    }
+
+    isTodoListDeleted = () => {
+        this.props.deleteTodoList(this.props.id);
+    }
+
+
 
     render = () => {
-        let filteredTasks = this.state.tasks.filter(t => {
+        let filteredTasks = this.props.tasks.filter(t => {
             switch (this.state.filterValue) {
                 case "Active":
                     return t.isDone === false;
@@ -125,9 +142,11 @@ class TodoList extends React.Component {
         return (
 
             <div className="todoList">
-                <TodoListTitle title={this.props.title}/>
+                <TodoListTitle title={this.props.title}/> <span onClick={this.isTodoListDeleted}> <FontAwesomeIcon
+                className='times-header' icon={faTimes}/></span>
                 <AddNewItemForm title={this.props.title} addItem={this.addTask}/>
-                <TodoListTasks deleteTask={this.deleteTask} changeTitle={this.changeTitle} tasks={filteredTasks}
+                <TodoListTasks changePriority={this.changePriority}
+                               deleteTask={this.deleteTask} changeTitle={this.changeTitle} tasks={filteredTasks}
                                changeStatus={this.changeStatus}/>
                 <TodoListFooter filerValue={this.state.filterValue} changeFilter={this.changeFilter}/>
 
@@ -138,6 +157,49 @@ class TodoList extends React.Component {
 }
 
 
-export default TodoList;
+// const mapStateToProps = (state) => {
+//     return {
+//         tasks: state.todolists.tasks
+//     }
+// }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTask: (todolistId, newTask) => {
+            let action = {
+                type: 'ADD_TASK',
+                newTask,
+                todolistId
+
+            }
+
+            dispatch(action)
+        },
+        changeTask: (todolistId, taskId, obj ) => {
+            let action = {
+                type: 'CHANGE_TASK',
+                todolistId,
+                taskId,
+                obj
+
+            }
+
+            dispatch(action)
+        },
+        deleteTask: (todolistId, taskId) => {
+            let action = {
+                type: 'DELETE_TASK',
+                todolistId,
+                taskId
+
+            }
+
+            dispatch(action)
+        }
+    }
+}
+
+const ConnectedTodoList = connect(null, mapDispatchToProps)(TodoList)
+
+export default ConnectedTodoList;
 
