@@ -1,5 +1,9 @@
 import React from 'react';
 import './App.css';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import {AddBox} from '@material-ui/icons';
 
 
 class AddNewItemForm extends React.Component {
@@ -41,11 +45,13 @@ class AddNewItemForm extends React.Component {
             <div className="todoList-newTaskForm">
 
 
-                <input className={error}
+                <TextField variant='outlined'
+                           error={!!error}
                        value={this.state.title} onChange={this.onTitleChanged}
                        onKeyPress={this.onKeyPress}
-                       type="text" placeholder="New item name"/>
-                <button onClick={this.onAddItemClick}>Add</button>
+                       type="text" label="title"/>
+                {/*<button onClick={this.onAddItemClick}>Add</button>*/}
+                <IconButton color='primary' onClick={this.onAddItemClick}><AddBox /></IconButton>
 
 
             </div>

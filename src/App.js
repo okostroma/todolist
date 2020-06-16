@@ -1,11 +1,23 @@
 import React from 'react';
 import './App.css';
-import PropTypes from 'prop-types';
 import TodoList from "./TodoList";
-
-import TodoListTitle from "./TodoListTitle";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
+import {addTodoListActionCreator, deleteTodoListActionCreator, setTodoListsActionCreator} from "./reducer";
+import * as axios from 'axios'
+import {todoListAPI} from "./api";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { MenuIcon } from '@material-ui/core';
+import Drawer from "@material-ui/core/Drawer";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import Menu from "@material-ui/core/Menu";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 class App extends React.Component {
     state = {
@@ -17,27 +29,35 @@ class App extends React.Component {
     }
 
     nextTodoListId = 0;
-    saveState = () => {
-        let stateAsString = JSON.stringify(this.state);
-        localStorage.setItem('todolists', stateAsString)
+    // saveState = () => {
+    //     let stateAsString = JSON.stringify(this.state);
+    //     localStorage.setItem('todolists', stateAsString)
+    //
+    // }
+    // restoreState = () => {
+    //     let state = {
+    //         todolists: []
+    //     };
+    //     let stateAsString = localStorage.getItem('todolists');
+    //     if (stateAsString) {
+    //         state = JSON.parse(stateAsString);
+    //     }
+    //     this.setState(state, () => {
+    //         this.state.todolists.forEach(t => {
+    //                 if (t.id >= this.nextTodoListId) {
+    //                     this.nextTodoListId = t.id + 1
+    //                 }
+    //             }
+    //         )
+    //     })
+    // }
 
-    }
+
     restoreState = () => {
-        let state = {
-            todolists: []
-        };
-        let stateAsString = localStorage.getItem('todolists');
-        if (stateAsString) {
-            state = JSON.parse(stateAsString);
-        }
-        this.setState(state, () => {
-            this.state.todolists.forEach(t => {
-                    if (t.id >= this.nextTodoListId) {
-                        this.nextTodoListId = t.id + 1
-                    }
-                }
-            )
-        })
+        todoListAPI.getTodoLists()
+            .then(data => {
+                this.props.setTodoLists(data);
+            });
     }
 
     componentDidMount() {
@@ -45,17 +65,23 @@ class App extends React.Component {
     }
 
     addTodoList = (title) => {
-        let newTodoList = {
-            id: this.nextTodoListId,
-            title: title,
-            tasks: []
-        }
-        this.nextTodoListId++;
+        // let newTodoList = {
+        //     id: this.nextTodoListId,
+        //     title: title,
+        //     tasks: []
+        // }
+        // this.nextTodoListId++;
         // let newTodoList = [...this.state.todolists, todoList];
         // this.setState({
         //     todolists: newTodoList
         // },this.saveState)
-        this.props.createTodolist(newTodoList)
+        // this.props.createTodolist(newTodoList)
+
+        todoListAPI.postTodoList(title)
+            .then(data => {
+                let todolists = data.data.item;
+                this.props.createTodolist(todolists);
+            });
 
     }
 
@@ -65,25 +91,49 @@ class App extends React.Component {
         //     return t.id !== todolistId;
         // });
 
-        this.props.deleteTodolist(todolistId)
+        // this.props.deleteTodolist(todolistId)
         // this.setState({
         //     todolists: newTodoList
         // }, this.saveState);
+
+        todoListAPI.deleteList(todolistId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.deleteTodolist(todolistId)
+                }
+            });
 
 
     }
 
     render = () => {
-        const todolist = this.props.todolists.map(tl => <TodoList key={tl.id} tasks={tl.tasks}
+        const todolist = this.props.todolists.map(tl => <Grid item> <Paper style={{padding: '10px'}}> <TodoList key={tl.id} tasks={tl.tasks}
                                                                   deleteTodoList={this.deleteTodoList} id={tl.id}
-                                                                  title={tl.title}/>)
+                                                                             title={tl.title}/> </Paper> </Grid>)
 
         return (<div>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" className='menuButton' color="inherit" aria-label="menu">
+                            <Menu />
+                        </IconButton>
+                        <Typography variant="h6" className='title'>
+                            News
+                        </Typography>
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                </AppBar>
+                <Container fixed>
+                    <Grid container style={{padding: '20px'}}>
+
                 <AddNewItemForm addItem={this.addTodoList}/>
-                <div className="App">
+                    </Grid>
+                    <Grid container spacing={3}>
+
                     {todolist}
 
-                </div>
+                    </Grid>
+                </Container>
             </div>
         )
 
@@ -101,21 +151,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         createTodolist: (newTodoList) => {
-            let action = {
-                type: 'ADD_TODOLIST',
-                newTodoList: newTodoList
-
-            }
-            dispatch(action)
+            dispatch(addTodoListActionCreator(newTodoList))
 
         },
         deleteTodolist: (todolistId) => {
-            let action = {
-                type: 'DELETE_TODOLIST',
-                 todolistId
-
-            }
-            dispatch(action)
+            dispatch(deleteTodoListActionCreator(todolistId))
+        },
+        setTodoLists: (todolists) => {
+            dispatch(setTodoListsActionCreator(todolists))
         }
     }
 }

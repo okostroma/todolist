@@ -1,12 +1,9 @@
 body {
     background-color: aliceblue;
-
-}
-
-.App {
     font-family: cursive;
 
 }
+
 
 /*.todoList {*/
 /*    width: 500px;*/
@@ -14,61 +11,68 @@ body {
 /*}*/
 
 
-.App {
-    display: flex;
-    flex-direction: row;
-}
+/*.App {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
 
 .todoList {
-    max-width: 400px;
     position: relative;
     margin-right: 30px;
 }
 
 
-.todoList > div {
-    padding: 10px;
-}
+/*.todoList > div {*/
+/*    padding: 10px;*/
+/*}*/
 
-.todoList-task {
+/*.todoList-task {*/
 
-}
+/*}*/
 
-.filter-active {
-    background-color: aqua;
-}
+/*.filter-active {*/
+/*    background-color: aqua;*/
+/*}*/
 
-.error {
-    border-color: red;
-}
+/*.error {*/
+/*    border-color: red;*/
+/*}*/
 
-.todoList-task.done {
-    opacity: 0.5;
-}
+/*.todoList-task.done {*/
+/*    opacity: 0.5;*/
+/*}*/
 
-button {
-    font-family: cursive;
-}
+/*button {*/
+/*    font-family: cursive;*/
+/*}*/
 
 
-.times {
-    margin-left: 10px;
-    color: #000;
-    cursor: pointer;
-}
-.header {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-}
+/*.times {*/
+/*    margin-left: 10px;*/
+/*    color: #000;*/
+/*    cursor: pointer;*/
+/*}*/
+/*.header {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    align-items: baseline;*/
+/*}*/
 
 .times-header {
     margin-left: 10px;
-    color: #000;
+    color: #f50057;
     position: absolute;
-    top: 35px;
-    right: 20px;
+    top: -10px;
+    right: -20px;
     cursor: pointer;
+
+}
+
+.menuButton {
+
+}
+
+.title {
 
 }
 

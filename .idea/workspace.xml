@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b7de8f0-caa3-4af2-8532-b36755e03115" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AddNewItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddNewItemForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TodoListFooter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListFooter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TodoListTask.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListTask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TodoListTasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListTasks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +42,23 @@
       <recent name="D:\proj\incubator\react\01-todolist-for-student\src" />
       <recent name="E:\proj\incubator\react\01-todolist-for-student\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="deploy" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.deploy" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -77,6 +96,13 @@
       <workItem from="1590588050228" duration="2566000" />
       <workItem from="1590593776871" duration="12759000" />
       <workItem from="1590670238484" duration="4935000" />
+      <workItem from="1590699613922" duration="853000" />
+      <workItem from="1591199088155" duration="11891000" />
+      <workItem from="1591801335636" duration="818000" />
+      <workItem from="1591802201618" duration="16690000" />
+      <workItem from="1591892597299" duration="5136000" />
+      <workItem from="1592141718617" duration="12127000" />
+      <workItem from="1592334864397" duration="642000" />
     </task>
     <servers />
   </component>
@@ -92,6 +118,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1585660596502" />
+    <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1590702682378">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1590702682378" />
+    <state width="1345" height="179" key="GridCell.Tab.0.center" timestamp="1590702682378">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1590702682378" />
+    <state width="1345" height="179" key="GridCell.Tab.0.left" timestamp="1590702682378">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1590702682378" />
+    <state width="1345" height="179" key="GridCell.Tab.0.right" timestamp="1590702682378">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1590702682378" />
     <state x="184" y="6" key="SettingsEditor" timestamp="1586196082366">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
