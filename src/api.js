@@ -3,7 +3,7 @@ import * as axios from "axios";
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    headers: {'API-KEY': '01dff12f-025a-426e-aee1-b5aaa1d81343'}
+    headers: {'API-KEY': '89d3ab27-e6f8-442a-b614-5050ed22f870'}
 })
 
 
@@ -29,6 +29,9 @@ export const todoListAPI =  {
     updateTask(todolistId,taskId,task){
         return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`,
             task).then(response => response.data)
+    },
+    updateTodoList(todolistId, todoListTitle){
+        return instance.put(`todo-lists/${todolistId}`, {title: todoListTitle}).then(response => response.data)
     }
 
 }

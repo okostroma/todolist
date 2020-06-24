@@ -7,9 +7,8 @@ import TodoListTitle from "./TodoListTitle";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes} from '@fortawesome/free-solid-svg-icons'
 import {connect} from "react-redux";
-import {addTaskActionCreator, changeTaskActionCreator, deleteTaskActionCreator, setTasksActionCreator} from "./reducer";
-import * as axios from "axios";
-import {todoListAPI} from "./api";
+import {delTask, getTasks, postTask, putTask} from "./reducer";
+
 
 class TodoList extends React.Component {
 
@@ -44,12 +43,14 @@ class TodoList extends React.Component {
         //     )
         // })
 
-        todoListAPI.getTasks(this.props.id)
-            .then(data => {
-                if (!data.error) {
-                    this.props.setTasks(this.props.id, data.items)
-                }
-            });
+        // todoListAPI.getTasks(this.props.id)
+        //     .then(data => {
+        //         if (!data.error) {
+        //             this.props.setTasks(this.props.id, data.items)
+        //         }
+        //     });
+
+        this.props.getTasks(this.props.id)
 
     }
 
@@ -74,12 +75,13 @@ class TodoList extends React.Component {
 
         // this.props.addTask(this.props.id, newTask);
 
-        todoListAPI.postTask(this.props.id, newTitle)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.addTask(this.props.id, data.data.item)
-                }
-            });
+        // todoListAPI.postTask(this.props.id, newTitle)
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.addTask(this.props.id, data.data.item)
+        //         }
+        //     });
+        this.props.postTask(this.props.id, newTitle)
 
 
     }
@@ -93,35 +95,37 @@ class TodoList extends React.Component {
         // }, this.saveState);
 
         // this.props.deleteTask(this.props.id, taskId)
-        todoListAPI.delTask(this.props.id, taskId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.deleteTask(this.props.id, taskId)
-                }
-            });
+        // todoListAPI.delTask(this.props.id, taskId)
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.deleteTask(this.props.id, taskId)
+        //         }
+        //     });
+
+        this.props.delTask(this.props.id, taskId)
 
     }
 
 
     changeFilter = (newFilterValue) => {
-        debugger
         this.setState({
             filterValue: newFilterValue
         });
     }
 
     changeTask = (task) => {
-
         debugger
+
         // this.props.changeTask (this.props.id,taskId, obj )
 
-        todoListAPI.updateTask(this.props.id,task.id,task)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    debugger
-                    this.props.changeTask(data.data.item)
-                }
-            });
+        // todoListAPI.updateTask(this.props.id,task.id,task)
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.changeTask(data.data.item)
+        //         }
+        //     });
+
+        this.props.putTask(this.props.id,task.id,task)
     }
 
     changeStatus = (task, status) => {
@@ -131,7 +135,7 @@ class TodoList extends React.Component {
     }
 
     changeTitle = (task, title) => {
-        debugger
+
         this.changeTask({...task, title: title})
 
     }
@@ -143,6 +147,8 @@ class TodoList extends React.Component {
     isTodoListDeleted = () => {
         this.props.deleteTodoList(this.props.id);
     }
+
+
 
 
     render = () => {
@@ -166,7 +172,8 @@ class TodoList extends React.Component {
         return (
 
             <div className="todoList">
-                <TodoListTitle title={this.props.title}/> <span onClick={this.isTodoListDeleted}> <FontAwesomeIcon
+                <TodoListTitle id={this.props.id} changeTodoListTitle={this.props.changeTodoListTitle} title={this.props.title}/>
+                <span onClick={this.isTodoListDeleted}> <FontAwesomeIcon
                 className='times-header' icon={faTimes}/></span>
                 <AddNewItemForm title={this.props.title} addItem={this.addTask}/>
                 <TodoListTasks changePriority={this.changePriority}
@@ -187,46 +194,14 @@ class TodoList extends React.Component {
 //     }
 // }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addTask: (todolistId, newTask) => {
-            // let action = {
-            //     type: 'ADD_TASK',
-            //     newTask,
-            //     todolistId
-            //
-            // }
 
-            dispatch(addTaskActionCreator(todolistId, newTask))
-        },
-        changeTask: (task) => {
-            // let action = {
-            //     type: 'CHANGE_TASK',
-            //     todolistId,
-            //     taskId,
-            //     obj
-            //
-            // }
-            debugger
-            dispatch(changeTaskActionCreator(task))
-        },
-        deleteTask: (todolistId, taskId) => {
-            // let action = {
-            //     type: 'DELETE_TASK',
-            //     todolistId,
-            //     taskId
-            //
-            // }
 
-            dispatch(deleteTaskActionCreator(todolistId, taskId))
-        },
-        setTasks: (todolistId, tasks) => {
-            dispatch(setTasksActionCreator(todolistId, tasks))
-        }
-    }
-}
-
-const ConnectedTodoList = connect(null, mapDispatchToProps)(TodoList)
+const ConnectedTodoList = connect(null, {
+    putTask,
+    delTask,
+    getTasks,
+    postTask
+})(TodoList)
 
 export default ConnectedTodoList;
 

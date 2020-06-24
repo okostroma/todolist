@@ -40,7 +40,6 @@ class TodoListTask extends React.Component {
     }
 
     onIsPriorityChanged = (e) => {
-        debugger
         this.props.changePriority(this.props.task, e.currentTarget.value)
 
     }
