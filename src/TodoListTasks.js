@@ -19,10 +19,7 @@ class TodoListTasks extends React.Component {
         );
     }
 }
-TodoListTasks.propTypes = {
-    tasks: PropTypes.array
 
-}
 
 export default TodoListTasks;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -6,10 +6,19 @@ import IconButton from "@material-ui/core/IconButton";
 import {AddBox} from '@material-ui/icons';
 
 
-class AddNewItemForm extends React.Component {
+type OunPropsType = {
+    addItem: (newTitle: string) => void
+}
+
+type StateType = {
+    error: boolean
+    title: string
+}
+
+class AddNewItemForm extends React.Component<OunPropsType, StateType> {
 
 
-    state = {
+    state: StateType = {
         error: false,
         title: ''
     }
@@ -24,13 +33,13 @@ class AddNewItemForm extends React.Component {
         }
 
     }
-    onTitleChanged = (e) => {
+    onTitleChanged = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         this.setState({
             error: false,
             title: e.currentTarget.value
         })
     }
-    onKeyPress = (e) => {
+    onKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             this.onAddItemClick();
         }
@@ -38,7 +47,7 @@ class AddNewItemForm extends React.Component {
     }
 
     render = () => {
-        let error = this.state.error === true ? 'error' : ''
+        let error = this.state.error ? 'error' : ''
         return (
 
 

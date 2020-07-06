@@ -77,11 +77,7 @@ class TodoListTask extends React.Component {
         );
     }
 }
-TodoListTask.propTypes = {
-    title: PropTypes.string,
-    isDone: PropTypes.bool,
-    priority: PropTypes.string
-}
+
 
 export default TodoListTask;
 
