@@ -8,6 +8,7 @@ import {AddBox} from '@material-ui/icons';
 
 type OunPropsType = {
     addItem: (newTitle: string) => void
+
 }
 
 type StateType = {

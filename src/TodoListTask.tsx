@@ -1,13 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ChangeEvent } from 'react';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
+import {TaskType} from "./types/entities";
 
 
-class TodoListTask extends React.Component {
+
+type StateType = {
+    isEditMode: boolean
+    title: string
+}
+
+
+type OwnPropsType = {
+    task: TaskType
+    changeTitle: (task: TaskType, title: string) => void
+    changeStatus: (task: TaskType, checked: boolean) => void
+    deleteTask: (id: string) => void
+    changePriority: (task: TaskType, checked: string) => void
+}
+
+class TodoListTask extends React.Component<OwnPropsType,StateType> {
     state = {
         isEditMode: false,
         title: this.props.task.title
@@ -28,22 +43,21 @@ class TodoListTask extends React.Component {
     }
 
 
-    onIsDoneChanged = (e) => {
+    onIsDoneChanged = (e: ChangeEvent<HTMLInputElement>) => {
        this.props.changeStatus(this.props.task, e.currentTarget.checked)
     }
 
-    onIsTitleChange = (e) => {
-        this.setState(({title:e.currentTarget.value }))
+    onIsTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({title:e.currentTarget.value })
     }
     isTaskDeleted = () => {
         this.props.deleteTask(this.props.task.id);
     }
 
-    onIsPriorityChanged = (e) => {
+    onIsPriorityChanged = (e: ChangeEvent<HTMLSelectElement>) => {
         this.props.changePriority(this.props.task, e.currentTarget.value)
 
     }
-
 
 
     render = () => {
@@ -60,17 +74,12 @@ class TodoListTask extends React.Component {
                    {this.props.task.title}</span>
                 }
                  ,
-                {/*<span>priority: {this.props.task.priority}</span>*/}
 
                 <span > priority:
                         <select onChange={this.onIsPriorityChanged} value={priorityInt === 2 ? 'high' : priorityInt === 1 ? 'medium' : 'low' }>
-                            {/*<option value={this.state.priority[0]} >{this.state.priority[0]}</option>*/}
-                            {/*<option value={this.state.priority[1]} >{this.state.priority[1]}</option>*/}
-                            {/*<option value={this.state.priority[2]}>{this.state.priority[2]}</option>*/}
 
                             {items}
                         </select>
-                    {/*{this.props.task.priority}*/}
                     </span>
                 <span onClick={this.isTaskDeleted}> <FontAwesomeIcon className='times' icon={faTimes}/> </span>
             </div>

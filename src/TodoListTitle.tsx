@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import TextField from "@material-ui/core/TextField";
 
-class TodoListTitle extends React.Component {
+
+type StateType = {
+    isEditMode: boolean
+    title: string
+}
+
+type OwnPropsType = {
+    id: string
+    title: string
+    changeTodoListTitle: (id: string, title: string) => void
+}
+
+
+class TodoListTitle extends React.Component<OwnPropsType, StateType> {
 
     state = {
         isEditMode: false,
         title: this.props.title
     }
 
-    onIsTitleChange = (e) => {
+    onIsTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({title: e.currentTarget.value})
     }
 

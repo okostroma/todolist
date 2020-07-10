@@ -1,9 +1,19 @@
 import React from 'react';
 import './App.css';
-import PropTypes from 'prop-types';
+
 import Button from "@material-ui/core/Button";
 
-class TodoListFooter extends React.Component {
+type StateType = {
+    isHidden: boolean
+}
+
+type OwnPropsType = {
+    changeFilter: (newFilterValue: string) => void
+    filerValue: string
+}
+
+
+class TodoListFooter extends React.Component<OwnPropsType, StateType> {
     state = {
         isHidden: false
     }
@@ -33,9 +43,9 @@ class TodoListFooter extends React.Component {
         return (
             <div className="todoList-footer">
                 { !this.state.isHidden && <div>
-                <Button color='default'  onClick={this.onAllFilterClick} variant={classForAll}>All</Button>
-                <Button color='primary'  onClick={this.onCompletedFilterClick} variant={classForCompleted}>Completed</Button>
-                <Button color='secondary' onClick={this.onActiveFilterClick} variant={classForActive}>Active</Button>
+                <Button color='default'  onClick={this.onAllFilterClick} variant='contained'>All</Button>
+                <Button color='primary'  onClick={this.onCompletedFilterClick} variant='contained'>Completed</Button>
+                <Button color='secondary' onClick={this.onActiveFilterClick} variant='contained'>Active</Button>
             </div>}
 
 
@@ -46,9 +56,7 @@ class TodoListFooter extends React.Component {
         );
     }
 }
-TodoListFooter.propTypes = {
-    filterValue: PropTypes.string
-}
+
 
 export default TodoListFooter;
 
