@@ -23,9 +23,6 @@ type MapDispatchToPropsType = {
     postTask: (id: string,newTitle:string) => void
     delTask: (id: string,taskId: string) => void
     putTask: (id: string,taskId: string,task: TaskType) => void
-
-
-
 }
 type OwnPropsType = {
     id: string

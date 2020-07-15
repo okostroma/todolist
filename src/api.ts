@@ -4,7 +4,7 @@ import {TaskType, TodolistType, TodolistUpdateObject} from "./types/entities";
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    headers: {'API-KEY': '3a78ad39-64cd-41e2-9aea-6c18cb0677f6'}
+    headers: {'API-KEY': '7c011e76-2db4-49d9-abb8-3dc632ba8483'}
 })
 
 
